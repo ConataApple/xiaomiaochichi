@@ -345,19 +345,6 @@ img { display: block; max-width: 100%; }
 }
 .toast.is-hidden { display: none; }
 
-/* ---------- FAB ---------- */
-.fab {
-  position: fixed; right: 1.2rem; bottom: 5.5rem;
-  width: 3.5rem; height: 3.5rem;
-  background: var(--coral); color: var(--paper);
-  border: var(--stroke);
-  box-shadow: var(--shadow);
-  font-size: 1.6rem; font-weight: 900;
-  display: none; align-items: center; justify-content: center;
-  z-index: 30;
-}
-.fab:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
-@media (max-width: 640px) { .fab { display: flex; padding-bottom: env(safe-area-inset-bottom); } }
 
 /* ---------- 工具 ---------- */
 .flex { display: flex; }

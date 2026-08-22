@@ -467,10 +467,6 @@
     };
 
     $('btnAddRestaurant').onclick = () => requireUnlock(() => openRestaurantModal(null));
-    $('btnFab').onclick = () => {
-      if ($('viewDetail').classList.contains('hidden')) requireUnlock(() => openRestaurantModal(null));
-      else requireUnlock(() => openMealModal(null));
-    };
     $('btnAddMeal').onclick = () => requireUnlock(() => openMealModal(null));
     $('btnEditRestaurant').onclick = () => requireUnlock(() => openRestaurantModal(state.currentRestaurant));
     $('btnRestCancel').onclick = () => hideModal('modalRestaurant');
