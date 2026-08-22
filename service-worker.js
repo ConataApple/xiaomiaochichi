@@ -1,6 +1,6 @@
 // 小喵吃吃 - Service Worker（network-first，离线 fallback）
 // 改版本号会让旧 cache 自动失效
-const CACHE = 'xiaomiao-v2';
+const CACHE = 'xiaomiao-v3';
 const ASSETS = [
   './',
   './index.html',
