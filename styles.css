@@ -1,0 +1,410 @@
+/* ============================================================
+   小喵吃吃 · 新粗野主义（Neo-Brutalism）样式表
+   字体层级：粗（焦点）+ 细（说明）+ 胶囊（点缀）
+   硬边、3px 黑描边、纯色硬阴影、糖果饱和色块
+   ============================================================ */
+
+/* ---------- 设计变量 ---------- */
+:root {
+  --ink: #000;
+  --paper: #ffffff;
+  --cream: #faf6e8;
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --shadow-lg: 8px 8px 0 var(--ink);
+  --stroke: 3px solid var(--ink);
+  --stroke-thin: 2px solid var(--ink);
+
+  /* 糖果色板 */
+  --lemon: #fde047;
+  --lemon-deep: #facc15;
+  --coral: #f87171;
+  --coral-deep: #ef4444;
+  --mint: #5eead4;
+  --mint-deep: #2dd4bf;
+  --sky: #bae6fd;
+  --sky-deep: #38bdf8;
+  --pink: #f9a8d4;
+  --pink-deep: #ec4899;
+  --lime: #bef264;
+  --lavender: #c4b5fd;
+  --orange: #fdba74;
+}
+
+/* ---------- 重置 ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
+               'Microsoft YaHei', sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.4;
+}
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; padding: 0; }
+input, textarea, select { font: inherit; color: inherit; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+
+/* 响应式标题字号 */
+.t-hero   { font-size: clamp(2rem, 7vw, 3.75rem); font-weight: 900; letter-spacing: -0.02em; line-height: 0.95; text-transform: uppercase; }
+.t-title  { font-size: clamp(1.5rem, 5vw, 2.25rem); font-weight: 900; letter-spacing: -0.01em; line-height: 1.05; text-transform: uppercase; }
+.t-h3     { font-size: clamp(1.1rem, 3vw, 1.4rem); font-weight: 800; letter-spacing: -0.005em; }
+.t-body   { font-size: 1rem; font-weight: 400; line-height: 1.55; }
+.t-small  { font-size: 0.85rem; font-weight: 700; }
+.t-tiny   { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.t-mono   { font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; font-weight: 600; }
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  background: var(--lemon);
+  border-bottom: var(--stroke);
+  padding: 0.75rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.75rem;
+}
+.topbar .brand { display: flex; align-items: center; gap: 0.6rem; }
+.topbar .brand-mark {
+  width: 1.6rem; height: 1.6rem; background: var(--ink);
+  display: inline-block; box-shadow: 3px 3px 0 var(--coral-deep);
+}
+.topbar h1 { font-size: 1.05rem; font-weight: 900; letter-spacing: 0.02em; text-transform: uppercase; margin: 0; }
+.topbar .brand-sub { font-size: 0.72rem; font-weight: 800; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; }
+.topbar-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+/* ---------- 容器 ---------- */
+.container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem 6rem; }
+.section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 0.6rem;
+  border-bottom: var(--stroke);
+}
+
+/* ---------- 卡片（核心元素） ---------- */
+.card {
+  background: var(--paper);
+  border: var(--stroke);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+}
+.card-sm { padding: 0.75rem 0.9rem; box-shadow: var(--shadow-sm); }
+.card-lg { padding: 1.25rem 1.4rem; box-shadow: var(--shadow-lg); }
+.card-pink { background: var(--pink); }
+.card-mint { background: var(--mint); }
+.card-sky  { background: var(--sky); }
+.card-lemon{ background: var(--lemon); }
+.card-coral{ background: var(--coral); color: var(--paper); }
+
+/* 悬浮时阴影变大 */
+.card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--stroke);
+  box-shadow: var(--shadow-sm);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform 0.06s, box-shadow 0.06s, background 0.06s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--lemon); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.btn-pink  { background: var(--pink); }
+.btn-mint  { background: var(--mint); }
+.btn-coral { background: var(--coral); color: var(--paper); }
+.btn-coral:hover { background: var(--coral-deep); }
+.btn-ink   { background: var(--ink); color: var(--paper); }
+.btn-ink:hover { background: #222; }
+.btn-lemon { background: var(--lemon); }
+.btn-sky   { background: var(--sky); }
+.btn-block { width: 100%; padding: 0.8rem 1rem; font-size: 1rem; }
+.btn-lg    { padding: 0.8rem 1.2rem; font-size: 1rem; box-shadow: var(--shadow); }
+
+/* ---------- 标签（圆角胶囊 pill） ---------- */
+.tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  background: var(--paper);
+  border: var(--stroke-thin);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.tag-pink  { background: var(--pink); }
+.tag-mint  { background: var(--mint); }
+.tag-lemon { background: var(--lemon); }
+.tag-sky   { background: var(--sky); }
+.tag-coral { background: var(--coral); color: var(--paper); }
+.tag-lime  { background: var(--lime); }
+.tag-orange{ background: var(--orange); }
+.tag-lavender { background: var(--lavender); }
+
+/* 标签选择器按钮（可选中态） */
+.tag-pick {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--paper);
+  border: var(--stroke-thin);
+  border-radius: 999px;
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+  cursor: pointer; opacity: 0.45;
+  transition: opacity 0.06s, background 0.06s;
+  white-space: nowrap;
+}
+.tag-pick.is-on { opacity: 1; box-shadow: 2px 2px 0 var(--ink); }
+.tag-pick:hover { opacity: 0.85; }
+
+/* ---------- 字段 ---------- */
+.field { display: block; margin-bottom: 1rem; }
+.field-label {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  background: var(--ink); color: var(--paper);
+  padding: 0.18rem 0.5rem;
+  margin-bottom: 0.45rem;
+}
+.input, .textarea {
+  display: block; width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: var(--paper);
+  border: var(--stroke-thin);
+  font-weight: 600;
+  outline: none;
+}
+.input:focus, .textarea:focus {
+  background: var(--lemon);
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.textarea { resize: vertical; min-height: 4.5rem; font-family: inherit; }
+
+.color-input {
+  width: 2.6rem; height: 2.6rem;
+  border: var(--stroke-thin); padding: 0;
+  background: var(--paper);
+}
+
+/* ---------- 弹窗 ---------- */
+.modal {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(0,0,0,0.45);
+  display: none; align-items: center; justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.modal.is-open { display: flex; }
+.modal-panel {
+  width: 100%; max-width: 30rem;
+  background: var(--paper);
+  border: var(--stroke);
+  box-shadow: var(--shadow-lg);
+  padding: 1.4rem 1.4rem 1.2rem;
+  margin: auto;
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: var(--stroke); padding-bottom: 0.6rem; margin-bottom: 1rem;
+}
+.modal-head h3 { margin: 0; }
+.modal-enter { animation: brut-pop 0.12s ease; }
+@keyframes brut-pop {
+  from { transform: translate(4px, 4px); opacity: 0; }
+  to   { transform: translate(0, 0); opacity: 1; }
+}
+
+/* ---------- 餐厅列表行 ---------- */
+.rest-row {
+  display: flex; align-items: stretch; gap: 0.75rem;
+  padding: 0.9rem 0;
+  border-bottom: var(--stroke-thin);
+}
+.rest-row:hover { background: rgba(0,0,0,0.03); }
+.rest-row .rest-main {
+  flex: 1; min-width: 0; text-align: left;
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+.rest-row .rest-name { font-size: clamp(1.25rem, 2.5vw, 1.5rem); font-weight: 900; letter-spacing: -0.01em; }
+.rest-row .rest-note { font-size: 0.875rem; color: #555; font-weight: 400; }
+.rest-count {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'SF Mono', ui-monospace, monospace;
+}
+.rest-count .num { font-size: 2rem; font-weight: 900; line-height: 1; }
+.rest-count .lbl { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
+.rest-edit {
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
+  align-self: center; padding: 0.25rem 0.5rem;
+  border: var(--stroke-thin);
+  background: var(--lemon);
+}
+.rest-edit:hover { background: var(--lemon-deep); }
+
+/* ---------- 用餐记录块（完整卡片） ---------- */
+.meal-block {
+  background: var(--paper);
+  border: var(--stroke);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem 1.2rem;
+  border-radius: 0;
+}
+.meal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.6rem; flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: var(--stroke-thin);
+}
+.meal-date {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  padding: 0.22rem 0.65rem;
+}
+.meal-taglist {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  justify-content: flex-end; align-items: center;
+}
+/* 卡片内菜品分隔线（卡片已包边，这里细线分隔每道菜即可） */
+.meal-dishes { margin-top: 0.4rem; }
+.dish-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: var(--stroke-thin);
+}
+.dish-row:last-child { border-bottom: none; }
+.dish-row .dish-name {
+  /* 视觉焦点：加大、加粗、收紧字距 */
+  font-size: clamp(1.25rem, 3.2vw, 1.65rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #000;
+}
+.dish-row .dish-attrs {
+  /* 次要说明：细体、灰调、不抢戏 */
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #555;
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+.dish-row .dish-tags {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+  justify-content: flex-end; max-width: 55%;
+  align-items: flex-start;
+  padding-top: 0.15rem;
+}
+
+/* 用餐备注：与菜品属性同级——细体、小字、灰调 */
+.meal-note {
+  font-size: 0.875rem;
+  color: #555;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0.4rem 0 0.2rem 0;
+  padding: 0;
+  background: none; border: none;
+}
+.meal-actions { display: flex; gap: 0.6rem; margin-top: 0.7rem; padding-top: 0.6rem; border-top: var(--stroke-thin); }
+.link-btn {
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  background: none; border: none; padding: 0.2rem 0;
+  border-bottom: 2px solid var(--ink);
+}
+.link-btn:hover { background: var(--lemon); }
+
+/* ---------- 标签管理 ---------- */
+.tag-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0; border-bottom: var(--stroke-thin); }
+.tag-row .tag-name-input { flex: 1; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 5rem;
+  transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  font-size: 0.85rem; font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  border: var(--stroke-thin);
+  box-shadow: var(--shadow-sm);
+  z-index: 100;
+}
+.toast.is-hidden { display: none; }
+
+/* ---------- FAB ---------- */
+.fab {
+  position: fixed; right: 1.2rem; bottom: 5.5rem;
+  width: 3.5rem; height: 3.5rem;
+  background: var(--coral); color: var(--paper);
+  border: var(--stroke);
+  box-shadow: var(--shadow);
+  font-size: 1.6rem; font-weight: 900;
+  display: none; align-items: center; justify-content: center;
+  z-index: 30;
+}
+.fab:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
+@media (max-width: 640px) { .fab { display: flex; padding-bottom: env(safe-area-inset-bottom); } }
+
+/* ---------- 工具 ---------- */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: 0.25rem; } .gap-2 { gap: 0.5rem; } .gap-3 { gap: 0.75rem; } .gap-4 { gap: 1rem; }
+.mb-2 { margin-bottom: 0.5rem; } .mb-3 { margin-bottom: 0.75rem; } .mb-4 { margin-bottom: 1rem; } .mb-6 { margin-bottom: 1.5rem; }
+.mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-4 { margin-top: 1rem; } .mt-6 { margin-top: 1.5rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.w-full { width: 100%; }
+.text-center { text-align: center; }
+.text-muted { color: #555; font-weight: 700; }
+.hidden { display: none !important; }
+
+/* ---------- 视图切换 ---------- */
+.view-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+@media (min-width: 720px) {
+  .view-list-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .view-list-grid > .rest-row { border: var(--stroke-thin); padding: 0.9rem 1rem; margin: 0; }
+  .view-list-grid > .rest-row:hover { background: var(--lemon); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+}
+
+/* 详情页顶部 */
+.detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.detail-head h2 { margin: 0 0 0.3rem; }
+.detail-meta { font-size: 0.85rem; font-weight: 700; color: #444; }
+.detail-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+/* 餐记录卡片间距（卡片有阴影，需要更大间距避免重叠） */
+.meal-stack > .meal-block + .meal-block { margin-top: 2rem; }
+.meal-stack { padding-top: 0.5rem; }
+
+/* 空态：默认隐藏（CSS 强制），只有在 JS 加 .is-on 时才显示，避免页面加载初期的闪烁 */
+.empty-state { display: none; text-align: center; padding: 3rem 1rem; color: #555; font-weight: 700; }
+.empty-state.is-on { display: block; }
+.empty-state .sticker {
+  display: inline-block;
+  background: var(--lemon); border: var(--stroke); box-shadow: var(--shadow-sm);
+  padding: 0.4rem 0.8rem; transform: rotate(-2deg); margin-bottom: 0.75rem; font-weight: 900; text-transform: uppercase;
+}
+
+/* 滚动条收边（不强求） */
+::selection { background: var(--lemon); color: var(--ink); }

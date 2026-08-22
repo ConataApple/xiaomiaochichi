@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>小喵吃吃 · 点餐避雷本</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="小喵吃吃" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="icon" href="icon-192.png" />
+</head>
+<body>
+
+  <!-- 顶栏：糖果黄底 + 黑描边 -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>小喵吃吃</h1>
+        <div class="brand-sub">点餐避雷本</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="btnTags" class="btn btn-sky">标签</button>
+      <button id="btnLock" class="btn btn-pink"><span id="lockIcon">🔒</span>&nbsp;<span id="lockText">只读</span></button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 视图：餐厅列表 -->
+    <section id="viewList">
+      <div class="section-head">
+        <div>
+          <h2 class="t-title">餐厅</h2>
+          <div class="t-tiny text-muted">记录你的外卖足迹</div>
+        </div>
+        <button id="btnAddRestaurant" class="btn btn-ink">＋ 新建</button>
+      </div>
+      <div id="restaurantList" class="view-list-grid"></div>
+    </section>
+
+    <!-- 视图：餐厅详情 -->
+    <section id="viewDetail" class="hidden">
+      <button id="btnBack" class="link-btn mb-4">← 返回</button>
+
+      <div class="detail-head">
+        <div>
+          <h2 id="detailName" class="t-title"></h2>
+          <p id="detailMeta" class="detail-meta"></p>
+        </div>
+        <div class="detail-actions">
+          <button id="btnEditRestaurant" class="btn hidden">编辑</button>
+          <button id="btnAddMeal" class="btn btn-lemon">＋ 用餐</button>
+        </div>
+      </div>
+
+      <h3 class="t-tiny mb-2">用餐记录</h3>
+      <div id="mealList" class="meal-stack"></div>
+    </section>
+  </main>
+
+  <!-- FAB -->
+  <button id="btnFab" class="fab">＋</button>
+
+  <!-- ============ 弹窗：口令 ============ -->
+  <div id="modalPassword" class="modal">
+    <div class="modal-panel modal-enter">
+      <div class="modal-head"><h3 class="t-h3">需要口令</h3></div>
+      <p class="t-body mb-3">输入编辑口令后才能添加或修改。</p>
+      <input id="inputPassword" type="password" placeholder="请输入口令" class="input mb-2" />
+      <p id="pwError" class="t-small mb-2" style="color:#b91c1c;display:none">口令错误，请重试</p>
+      <div class="flex gap-3">
+        <button id="btnPwCancel" class="btn w-full">取消</button>
+        <button id="btnPwOk" class="btn btn-ink w-full">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 弹窗：添加/编辑餐厅 ============ -->
+  <div id="modalRestaurant" class="modal">
+    <div class="modal-panel modal-enter">
+      <div class="modal-head"><h3 id="restTitle" class="t-h3">添加餐厅</h3></div>
+      <label class="field">
+        <span class="field-label">餐厅名称</span>
+        <input id="inputRestName" type="text" placeholder="如：麦当劳 / 楼下黄焖鸡" class="input" />
+      </label>
+      <label class="field">
+        <span class="field-label">备注（可选）</span>
+        <textarea id="inputRestNote" rows="2" placeholder="如：常点的那家，出餐快" class="textarea"></textarea>
+      </label>
+      <div class="flex gap-3">
+        <button id="btnRestCancel" class="btn w-full">取消</button>
+        <button id="btnRestSave" class="btn btn-ink w-full">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 弹窗：添加用餐 ============ -->
+  <div id="modalMeal" class="modal">
+    <div class="modal-panel modal-enter">
+      <div class="modal-head"><h3 class="t-h3">添加用餐</h3></div>
+
+      <label class="field">
+        <span class="field-label">用餐日期</span>
+        <input id="inputMealDate" type="date" class="input" />
+      </label>
+
+      <label class="field">
+        <span class="field-label">本次用餐备注</span>
+        <textarea id="inputMealNote" rows="2" placeholder="如：今天加班点的，送得慢" class="textarea"></textarea>
+      </label>
+
+      <div class="field">
+        <span class="field-label">本次用餐评价</span>
+        <div id="mealTagPicker" class="flex gap-2" style="flex-wrap:wrap"></div>
+      </div>
+
+      <div class="flex items-center justify-between mb-2">
+        <span class="field-label">菜品</span>
+        <button id="btnAddDish" class="link-btn">＋ 加一道菜</button>
+      </div>
+      <div id="dishContainer" class="flex flex-col gap-3 mb-4"></div>
+
+      <div class="flex gap-3">
+        <button id="btnMealCancel" class="btn w-full">取消</button>
+        <button id="btnMealSave" class="btn btn-ink w-full">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 弹窗：标签管理 ============ -->
+  <div id="modalTags" class="modal">
+    <div class="modal-panel modal-enter">
+      <div class="modal-head">
+        <h3 class="t-h3">标签管理</h3>
+        <button id="btnTagClose" class="link-btn">关闭</button>
+      </div>
+
+      <div id="tagList" class="mb-4"></div>
+
+      <div style="border-top:3px solid #000;padding-top:0.9rem">
+        <span class="field-label">添加新标签</span>
+        <div class="flex gap-2 mb-2">
+          <input id="inputTagName" type="text" placeholder="标签名，如：清淡" class="input" />
+          <input id="inputTagEmoji" type="text" placeholder="🏷" maxlength="2" class="input" style="max-width:3.5rem;text-align:center" />
+        </div>
+        <div class="flex gap-2 items-center">
+          <input id="inputTagColor" type="color" value="#fde047" class="color-input" />
+          <button id="btnTagAdd" class="btn btn-ink w-full">添加标签</button>
+        </div>
+      </div>
+
+      <div style="border-top:3px solid #000;margin-top:1rem;padding-top:0.9rem">
+        <span class="field-label">修改编辑口令</span>
+        <div class="flex gap-2">
+          <input id="inputNewPw" type="password" placeholder="新口令" class="input" />
+          <button id="btnPwChange" class="btn btn-ink">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast is-hidden"></div>
+
+  <!-- 依赖 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch((e) => console.log('SW 注册失败', e));
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "外卖打卡 · 我的点餐避雷本",
+  "short_name": "外卖打卡",
+  "description": "记录吃过的外卖菜品与评价，下次点餐前避坑",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eff6ff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
