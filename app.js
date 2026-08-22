@@ -39,24 +39,10 @@
   function escapeHtml(s) {
     return String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
-  // 糖果色 → 预设色块 class（粗野风格：固定 8 种糖果色轮换，避免背景脏）
-  const TAG_BG_CLASSES = ['tag-pink','tag-mint','tag-lemon','tag-sky','tag-coral','tag-lime','tag-orange','tag-lavender'];
-  function tagClassForColor(color) {
-    if (!color) return 'tag-lemon';
-    const c = color.toLowerCase();
-    if (c.includes('22c55e') || c.includes('16a34a') || c.includes('84cc16')) return 'tag-lime';
-    if (c.includes('ef4444') || c.includes('dc2626') || c.includes('f87171')) return 'tag-coral';
-    if (c.includes('3b82f6') || c.includes('2563eb') || c.includes('0ea5e9') || c.includes('38bdf8')) return 'tag-sky';
-    if (c.includes('facc15') || c.includes('eab308') || c.includes('fde047')) return 'tag-lemon';
-    if (c.includes('ec4899') || c.includes('db2777') || c.includes('f472b6') || c.includes('f9a8d4')) return 'tag-pink';
-    if (c.includes('a855f7') || c.includes('8b5cf6') || c.includes('c4b5fd')) return 'tag-lavender';
-    if (c.includes('f97316') || c.includes('fb923c') || c.includes('fdba74')) return 'tag-orange';
-    if (c.includes('06b6d4') || c.includes('14b8a6') || c.includes('5eead4') || c.includes('2dd4bf')) return 'tag-mint';
-    return 'tag-lemon';
-  }
+  // 标签用用户自选的真实颜色做背景，不再映射预设色块（彻底避免落黄）
   function tagChip(tag) {
-    const cls = tagClassForColor(tag.color);
-    return `<span class="tag ${cls}"><span>${escapeHtml(tag.emoji || '🏷')}</span>${escapeHtml(tag.name)}</span>`;
+    const color = tag.color || '#fde047';
+    return `<span class="tag" style="background:${color}"><span>${escapeHtml(tag.emoji || '🏷')}</span>${escapeHtml(tag.name)}</span>`;
   }
   function getTag(id) { return state.tags.find((t) => t.id === id); }
 
@@ -258,8 +244,9 @@
       const on = state.mealTagSel.has(t.id);
       const b = document.createElement('button');
       b.type = 'button';
-      const cls = tagClassForColor(t.color);
-      b.className = 'tag-pick ' + cls + (on ? ' is-on' : '');
+      const color = t.color || '#fde047';
+      b.className = 'tag-pick' + (on ? ' is-on' : '');
+      b.style.background = color;
       b.innerHTML = `<span>${escapeHtml(t.emoji || '🏷')}</span> ${escapeHtml(t.name)}`;
       b.onclick = () => {
         if (state.mealTagSel.has(t.id)) state.mealTagSel.delete(t.id);
@@ -281,9 +268,10 @@
       row.className = 'card card-sm';
       const tagBtns = state.tags.map((t) => {
         const on = d.tagIds.has(t.id);
-        const cls = tagClassForColor(t.color);
+        const color = t.color || '#fde047';
         return `<button type="button" data-di="${i}" data-ti="${t.id}"
-          class="tag-pick ${cls} dish-tag ${on ? 'is-on' : ''}">
+          class="tag-pick dish-tag ${on ? 'is-on' : ''}"
+          style="background:${color}">
           ${escapeHtml(t.emoji || '🏷')}${escapeHtml(t.name)}</button>`;
       }).join('');
       row.innerHTML = `
