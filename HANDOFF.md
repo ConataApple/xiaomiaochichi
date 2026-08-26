@@ -165,8 +165,6 @@ CREATE POLICY "anon_all_restaurants" ON restaurants FOR ALL TO anon USING (true)
 
 当前靠"编辑口令"做软限制——但口令只是 `app_settings` 里一条记录，而 `app_settings` 本身也对 anon 开放读写，所以**理论上懂技术的人可以绕过前端直接改口令或删数据**。
 
-**用户已在 2026-08-22 把 GitHub 仓库设为 Private**，降低了代码（含 anon key 和默认密码提示）被公开搜到的风险，但数据库层面仍是开放的。若接手者要加固，正确做法是：用 Supabase 的 RLS 把操作限制为"仅自己"（例如基于一个固定 user id 或 IP），或升级为带登录的鉴权。本文档不强制，仅告知现状。
-
 ---
 
 ## 五、核心代码逻辑（app.js 导读）
