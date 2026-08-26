@@ -280,13 +280,9 @@ await sb.from('restaurants').delete().eq('id', id);
 - FAB 删除
 - 空状态删除
 
-**用户已做的安全动作**：GitHub 仓库设为 Private。
-**用户已做**：编辑口令从默认 123456 改为自定义强密码（在网站标签管理里改的，存在数据库）。
-
 **仍存在的薄弱点（接手者若要做安全加固）**：
 - Supabase RLS 对 anon 全开放，懂技术者可绕过前端直接操作库。加固需改 `supabase-schema.sql` 的 policy（例如限制为固定身份）。
 - `config.js` 的 anon key 随网页公开（这是 Supabase 设计使然，不是泄露，但意味着不能靠它保密）。
-- `README.md` 和旧 commit 历史里明文出现过默认密码 `123456` 和 anon key——仓库已 Private 缓解，但若将来转 Public 需先清理。
 
 ---
 
